@@ -1,5 +1,6 @@
-import 'package:analisador_sql/screens/home.dart';
 import 'package:flutter/material.dart';
+
+import 'screens/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,10 @@ class MyApp extends StatelessWidget {
         fontFamily: 'FiraCode',
         useMaterial3: true,
       ),
+      initialRoute: '/home',
+      routes: {
+        '/home': (context) => const Home(),
+      },
       home: const Home(),
     );
   }
