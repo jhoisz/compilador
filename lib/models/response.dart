@@ -49,13 +49,12 @@ class Response {
   @override
   String toString() {
     String message = success == true
-        ? "successfully compiled code\n"
+        ? "Successfully compiled code\n"
         : "Compilation error\n";
 
     for (final error in errorInfo ?? []) {
-      message += '$error\n';
+        message += '$error\n';
     }
-
     return message;
   }
 }

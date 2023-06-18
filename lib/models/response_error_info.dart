@@ -1,3 +1,4 @@
+
 class ResponseErrorInfo {
 /*
 {
@@ -40,7 +41,7 @@ class ResponseErrorInfo {
     String message = 'Error: $errorType\n';
     message += 'Line: $line\n';
     message += 'Received: $received\n';
-    if (expected != null) {
+    if (expected != 'null') {
       message += 'Expected: $expected\n';
     }
     return message;
