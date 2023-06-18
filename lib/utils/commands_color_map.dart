@@ -3,6 +3,10 @@ import 'package:flutter/material.dart';
 import '../themes/my_colors.dart';
 
 final commandsMap = {
+  'INSERT':
+      const TextStyle(fontWeight: FontWeight.bold, color: MyColors.color1),
+  'insert':
+      const TextStyle(fontWeight: FontWeight.bold, color: MyColors.color1),
   'CREATE':
       const TextStyle(fontWeight: FontWeight.bold, color: MyColors.color1),
   'create':

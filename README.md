@@ -1,16 +1,39 @@
-# analisador_sql
+<h1 align="center"> Compiladores: Analisador SQL 👩🏻‍💻 </h1>
 
-A new Flutter project.
+## ℹ️ Sobre o projeto
 
-## Getting Started
+> 🚧 em construção 🚧
 
-This project is a starting point for a Flutter application.
+## :sparkles: Funcionalidades do projeto
 
-A few resources to get you started if this is your first Flutter project:
+> 🚧 em construção 🚧
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+<!-- <p align="center">
+  <img src='' alt= '' />
+</p> -->
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## :hammer: Tecnologias usadas
+
+Neste projeto foram usadas as seguintes tecnologias:
+
+> Framework [Flutter](https://flutter.dev/)
+
+> Linguagem [Dart](https://dart.dev/)
+
+## :arrow_forward: Como executar
+
+Primeiro você deve [instalar flutter](https://docs.flutter.dev/get-started/install).
+
+Então, você pode clocar e entrar na pasta do projeto:
+
+```bash
+git clone https://github.com/jhoisz/analisador_sql
+cd analisador_sql
+```
+
+Agora, para testar, você deve instalar os pacotes/dependêncas e usar um dispositivo conectado ao seu computador ou usar um emulador:
+
+```bash
+Flutter pub get
+flutter run
+```

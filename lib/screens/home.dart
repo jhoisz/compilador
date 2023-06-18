@@ -1,9 +1,12 @@
-import 'package:analisador_sql/utils/commands_color_map.dart';
+import 'dart:io';
+
 import 'package:code_text_field/code_text_field.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../services/tokens_api.dart';
 import '../themes/my_colors.dart';
+import '../utils/commands_color_map.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,13 +20,12 @@ class _HomeState extends State<Home> {
   CodeController? _codeController;
   String terminal = '';
   bool isError = false;
+  final textUpload = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-
     const source = '';
-    // Instantiate the CodeController
     _codeController = CodeController(
       text: source,
       stringMap: commandsMap,
@@ -39,11 +41,40 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: MyColors.background,
+        actions: [
+          IconButton(
+              onPressed: () async {
+                FilePickerResult? result = await FilePicker.platform.pickFiles(
+                  allowMultiple: false,
+                  type: FileType.custom,
+                  allowedExtensions: ['txt'],
+                );
+                if (result != null) {
+                  if (result.files.first.extension == 'txt') {
+                    File file = File.fromRawPath(result.files.first.bytes!);
+                    setState(() {
+                      if (_codeController != null) {
+                        textUpload.text = file.path;
+                        _codeController!.value = textUpload.value;
+                      }
+                    });
+                  }
+                }
+              },
+              icon:
+                  const Icon(Icons.upload, color: MyColors.color3, size: 28.0)),
+        ],
+      ),
       body: Column(
         children: [
           Expanded(
             child: CodeField(
               controller: _codeController!,
+              horizontalScroll: true,
+              expands: true,
               textStyle: const TextStyle(
                   fontFamily: 'FiraCode', color: MyColors.color4),
               background: MyColors.background,
@@ -60,8 +91,7 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(16.0),
               width: double.infinity,
               color: MyColors.background,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
                   Row(
                     children: [
@@ -101,7 +131,10 @@ class _HomeState extends State<Home> {
                   ),
                   Text(
                     terminal,
-                    style:  TextStyle(fontWeight: FontWeight.bold, color: isError ? MyColors.success : MyColors.error),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, 
+                        fontSize: 16.0,
+                        color: isError ? MyColors.success : MyColors.error),
                   )
                 ],
               ),
@@ -112,4 +145,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
