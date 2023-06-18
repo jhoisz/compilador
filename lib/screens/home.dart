@@ -102,8 +102,9 @@ class _HomeState extends State<Home> {
                       IconButton(
                         onPressed: () async {
                           if (_codeController != null) {
-                            final String input = _codeController!.text;
+                            String input = _codeController!.text;
                             if (input != '') {
+                              input = input.replaceAll('\r', ' ');
                               final response = await api.postCommand(input);
 
                               setState(() {
@@ -132,7 +133,7 @@ class _HomeState extends State<Home> {
                   Text(
                     terminal,
                     style: TextStyle(
-                        fontWeight: FontWeight.bold, 
+                        fontWeight: FontWeight.bold,
                         fontSize: 16.0,
                         color: isError ? MyColors.success : MyColors.error),
                   )
