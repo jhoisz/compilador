@@ -2,15 +2,15 @@
 
 ## ℹ️ Sobre o projeto
 
-> 🚧 em construção 🚧
+Este trabalho aborda o uso de um parser recursivo descendente desenvolvido em Python para analisar comandos da linguagem SQL. Essa abordagem utiliza técnicas como expressões regulares e árvores sintáticas para identificar a estrutura sintática correta dos comandos SQL fornecidos como entrada.
+
+Desenvolvido para a disciplina de Compiladores na Universidade Federal do Piauí, 2023.1.
 
 ## :sparkles: Funcionalidades do projeto
 
-> 🚧 em construção 🚧
-
-<!-- <p align="center">
-  <img src='' alt= '' />
-</p> -->
+<p align="center">
+  <img src='analisador_sql.gif' alt= '' />
+</p>
 
 ## :hammer: Tecnologias usadas
 
