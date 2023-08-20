@@ -1,16 +1,20 @@
-<h1 align="center"> Compiladores: Analisador SQL 👩🏻‍💻 </h1>
+<h1 align="center"> Compilador </h1>
 
 ## ℹ️ Sobre o projeto
 
-Este trabalho aborda o uso de um parser recursivo descendente desenvolvido em Python para analisar comandos da linguagem SQL. Essa abordagem utiliza técnicas como expressões regulares e árvores sintáticas para identificar a estrutura sintática correta dos comandos SQL fornecidos como entrada.
+> 🚧 Em construção 🚧
 
-Desenvolvido para a disciplina de Compiladores na Universidade Federal do Piauí, 2023.1.
+<!-- Este trabalho aborda o uso de um parser recursivo descendente desenvolvido em Python para analisar comandos da linguagem SQL. Essa abordagem utiliza técnicas como expressões regulares e árvores sintáticas para identificar a estrutura sintática correta dos comandos SQL fornecidos como entrada.
+
+Desenvolvido para a disciplina de Compiladores na Universidade Federal do Piauí, 2023.1. -->
 
 ## :sparkles: Funcionalidades do projeto
 
-<p align="center">
+> 🚧 Em construção 🚧
+
+<!-- <p align="center">
   <img src='analisador_sql.gif' alt= '' />
-</p>
+</p> -->
 
 ## :hammer: Tecnologias usadas
 
@@ -24,11 +28,11 @@ Neste projeto foram usadas as seguintes tecnologias:
 
 Primeiro você deve [instalar flutter](https://docs.flutter.dev/get-started/install).
 
-Então, você pode clocar e entrar na pasta do projeto:
+Então, você pode clonar e entrar na pasta do projeto:
 
 ```bash
-git clone https://github.com/jhoisz/analisador_sql
-cd analisador_sql
+git clone https://github.com/jhoisz/compilador
+cd compilador
 ```
 
 Agora, para testar, você deve instalar os pacotes/dependêncas e usar um dispositivo conectado ao seu computador ou usar um emulador:
