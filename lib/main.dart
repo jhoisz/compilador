@@ -13,10 +13,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Analisador SQL',
+      title: 'Compilador',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'FiraCode',
+        fontFamily: 'FiraSans',
         useMaterial3: true,
       ),
       initialRoute: '/home',

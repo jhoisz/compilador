@@ -38,6 +38,7 @@ dependencies:
   code_text_field: ^1.1.0
   google_fonts: ^5.0.0
   file_picker: ^5.3.2
+  font_awesome_flutter: ^10.5.0
 
 dev_dependencies:
   flutter_test:
@@ -78,6 +79,12 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
+    - family: FiraSans
+      fonts:
+        - asset: fonts/FiraSans-Light.ttf
+        - asset: fonts/FiraSans-Medium.ttf
+        - asset: fonts/FiraSans-Bold.ttf
+          weight: 700
     - family: FiraCode
       fonts:
         - asset: fonts/FiraCode-Light.ttf
