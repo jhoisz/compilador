@@ -6,7 +6,7 @@ Este trabalho apresenta um compilador para uma linguagem nova, utilizando uma AP
 
 Desenvolvido para a disciplina de Compiladores na Universidade Federal do Piauí, 2023.1.
 
-## ✨ Funcionalidades do projeto
+## ✨ Projeto
 
 <p align="center">
   <img src='compilador.gif' alt= '' />
