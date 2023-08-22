@@ -23,10 +23,9 @@ class MyColorsLight extends MyColors {
           const Color(0xFF858BF2),
           const Color(0xFF0433BF),
           const Color(0xFFD904B5),
-                    const Color(0xFF8736D9),
-
+          const Color(0xFF8736D9),
           const Color(0xFF3B7302),
-          const Color(0xFFF2DD72),
+          const Color(0xFF3B7302),
           const Color(0xFF4D5673),
           const Color(0xFF222CF2),
           const Color(0xFFCED3F2),

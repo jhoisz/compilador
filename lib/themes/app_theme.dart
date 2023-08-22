@@ -1,9 +1,9 @@
 import 'my_colors.dart';
 
 class AppTheme {
-  static MyColors myColors = MyColorsDark();
+  static MyColors myColors = MyColorsLight();
 
-  static void changeTheme(bool isDark) {
-    isDark ? myColors = MyColorsDark() : myColors = MyColorsLight();
+  static void changeTheme(bool isLight) {
+    isLight ? myColors = MyColorsLight() : myColors = MyColorsDark();
   }
 }

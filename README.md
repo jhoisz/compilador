@@ -1,22 +1,18 @@
-<h1 align="center"> Compilador </h1>
+<h1 align="center"> Compilador ▶️ </h1>
 
 ## ℹ️ Sobre o projeto
 
-> 🚧 Em construção 🚧
+Este trabalho apresenta um compilador para uma linguagem nova, utilizando uma API que converte o que é digitado em código Jasmin.
 
-<!-- Este trabalho aborda o uso de um parser recursivo descendente desenvolvido em Python para analisar comandos da linguagem SQL. Essa abordagem utiliza técnicas como expressões regulares e árvores sintáticas para identificar a estrutura sintática correta dos comandos SQL fornecidos como entrada.
+Desenvolvido para a disciplina de Compiladores na Universidade Federal do Piauí, 2023.1.
 
-Desenvolvido para a disciplina de Compiladores na Universidade Federal do Piauí, 2023.1. -->
+## ✨ Funcionalidades do projeto
 
-## :sparkles: Funcionalidades do projeto
+<p align="center">
+  <img src='compilador.gif' alt= '' />
+</p>
 
-> 🚧 Em construção 🚧
-
-<!-- <p align="center">
-  <img src='analisador_sql.gif' alt= '' />
-</p> -->
-
-## :hammer: Tecnologias usadas
+## ⚒️ Tecnologias usadas
 
 Neste projeto foram usadas as seguintes tecnologias:
 
@@ -24,7 +20,7 @@ Neste projeto foram usadas as seguintes tecnologias:
 
 > Linguagem [Dart](https://dart.dev/)
 
-## :arrow_forward: Como executar
+## ▶️ Como executar
 
 Primeiro você deve [instalar flutter](https://docs.flutter.dev/get-started/install).
 
@@ -35,7 +31,7 @@ git clone https://github.com/jhoisz/compilador
 cd compilador
 ```
 
-Agora, para testar, você deve instalar os pacotes/dependêncas e usar um dispositivo conectado ao seu computador ou usar um emulador:
+Agora, para testar, você deve instalar os pacotes/dependências e usar um dispositivo conectado ao seu computador ou usar um emulador:
 
 ```bash
 Flutter pub get

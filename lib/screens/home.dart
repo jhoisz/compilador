@@ -5,10 +5,13 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../services/tokens_api.dart';
+import '../services/compiler_api.dart';
 import '../themes/app_theme.dart';
 import '../themes/my_colors.dart';
 import '../utils/commands_color_map.dart';
+import 'components/code.dart';
+import 'components/dialog.dart';
+import 'components/terminal_widget.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -18,22 +21,23 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final api = TokensApi();
+  final api = CompilerApi();
   CodeController? _codeController;
   String terminal = '';
   bool isError = false;
-
   final textUpload = TextEditingController();
 
-  final MaterialStateProperty<Icon?> thumbIcon =
+  MaterialStateProperty<Icon?> get thumbIcon =>
       MaterialStateProperty.resolveWith<Icon?>(
-    (Set<MaterialState> states) {
-      if (states.contains(MaterialState.selected)) {
-        return const Icon(FontAwesomeIcons.solidMoon, color: Color(0XFF010440));
-      }
-      return const Icon(FontAwesomeIcons.solidSun, color: Color(0XFFF2F2F2));
-    },
-  );
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.selected)) {
+            return const Icon(FontAwesomeIcons.solidSun,
+                color: Color(0XFFF2F2F2));
+          }
+          return const Icon(FontAwesomeIcons.solidMoon,
+              color: Color(0XFF010440));
+        },
+      );
 
   @override
   void initState() {
@@ -59,22 +63,7 @@ class _HomeState extends State<Home> {
         actions: [
           IconButton(
             onPressed: () async {
-              FilePickerResult? result = await FilePicker.platform.pickFiles(
-                allowMultiple: false,
-                type: FileType.custom,
-                allowedExtensions: ['txt'],
-              );
-              if (result != null) {
-                if (result.files.first.extension == 'txt') {
-                  File file = File.fromRawPath(result.files.first.bytes!);
-                  setState(() {
-                    if (_codeController != null) {
-                      textUpload.text = file.path;
-                      _codeController!.value = textUpload.value;
-                    }
-                  });
-                }
-              }
+              await readFile();
             },
             icon: Icon(
               Icons.upload,
@@ -83,19 +72,14 @@ class _HomeState extends State<Home> {
             ),
           ),
           Switch(
-            value: AppTheme.myColors is MyColorsDark,
+            value: AppTheme.myColors is MyColorsLight,
             thumbIcon: thumbIcon,
             activeColor: AppTheme.myColors.secondaryColor,
             inactiveThumbColor: AppTheme.myColors.secondaryColor,
+            inactiveTrackColor: AppTheme.myColors.background,
             onChanged: (bool value) {
               setState(() {
-                AppTheme.changeTheme(value);
-                if (_codeController != null) {
-                  _codeController = CodeController(
-                    text: _codeController!.text,
-                    stringMap: commandsMap,
-                  );
-                }
+                setStateTheme(value);
               });
             },
           ),
@@ -105,20 +89,7 @@ class _HomeState extends State<Home> {
         children: [
           Expanded(
             flex: 2,
-            child: CodeField(
-              controller: _codeController!,
-              horizontalScroll: true,
-              expands: true,
-              lineNumberStyle: LineNumberStyle(
-                textStyle: TextStyle(color: AppTheme.myColors.normal),
-              ),
-              cursorColor: AppTheme.myColors.secondaryColor,
-              textStyle: TextStyle(
-                fontFamily: 'FiraCode',
-                color: AppTheme.myColors.normal,
-              ),
-              background: AppTheme.myColors.background,
-            ),
+            child: Code(codeController: _codeController),
           ),
           Container(
             height: 1,
@@ -128,8 +99,12 @@ class _HomeState extends State<Home> {
           ),
           Expanded(
             child: Container(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(
+                vertical: 8.0,
+                horizontal: 16.0,
+              ),
               width: double.infinity,
+              height: 50.0,
               color: AppTheme.myColors.background,
               child: ListView(
                 children: [
@@ -142,18 +117,7 @@ class _HomeState extends State<Home> {
                       ),
                       IconButton(
                         onPressed: () async {
-                          if (_codeController != null) {
-                            String input = _codeController!.text;
-                            if (input != '') {
-                              input = input.replaceAll('\r', ' ');
-                              final response = await api.postCommand(input);
-
-                              setState(() {
-                                terminal = response[0];
-                                isError = response[1];
-                              });
-                            }
-                          }
+                          await sendRequest(context);
                         },
                         icon: Icon(
                           Icons.play_arrow,
@@ -163,9 +127,7 @@ class _HomeState extends State<Home> {
                       IconButton(
                         onPressed: () {
                           setState(() {
-                            if (_codeController != null) {
-                              terminal = '';
-                            }
+                            clear();
                           });
                         },
                         icon: Icon(
@@ -175,22 +137,76 @@ class _HomeState extends State<Home> {
                       )
                     ],
                   ),
-                  Text(
-                    terminal,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16.0,
-                      color: isError
-                          ? AppTheme.myColors.success
-                          : AppTheme.myColors.error,
-                    ),
-                  )
+                  TerminalWidget(terminal: terminal, isError: isError)
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );
+  }
+
+  void setStateTheme(bool value) {
+    AppTheme.changeTheme(value);
+
+    if (_codeController != null) {
+      _codeController = CodeController(
+        text: _codeController!.text,
+        stringMap: commandsMap,
+      );
+    }
+  }
+
+  Future<void> readFile() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      allowMultiple: false,
+      type: FileType.custom,
+      allowedExtensions: ['txt'],
+    );
+
+    if (result != null) {
+      if (result.files.first.extension == 'txt') {
+        PlatformFile? file = result.files.first;
+        if (file.path != null) {
+          final content = File(file.path!);
+          final text = await content.readAsString();
+
+          setState(() {
+            if (_codeController != null) {
+              textUpload.text = text;
+              _codeController!.value = textUpload.value;
+            }
+          });
+        }
+      }
+    }
+  }
+
+  void clear() {
+    if (_codeController != null) {
+      terminal = '';
+    }
+  }
+
+  Future<void> sendRequest(BuildContext context) async {
+    if (_codeController != null) {
+      final result = await api.postEntry(_codeController!.text);
+
+      if (result != null && result[0]) {
+        setState(() {
+          isError = false;
+          terminal = "successfully compiled";
+        });
+        if (mounted) {
+          showMyDialog(context);
+        }
+      } else if (result != null && !result[0]) {
+        setState(() {
+          isError = true;
+          terminal = result[1];
+        });
+      }
+    }
   }
 }

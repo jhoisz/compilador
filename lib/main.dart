@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       title: 'Compilador',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        fontFamily: 'FiraSans',
+        fontFamily: 'FiraCode',
         useMaterial3: true,
       ),
       initialRoute: '/home',
